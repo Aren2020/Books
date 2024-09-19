@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms', 
+    'crispy_bootstrap4',
+
     'accounts',
+    'pages',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -125,6 +129,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),) # the dirs where django search the static(local)
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # the dir that collectstatic collect the static files(production)
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder", # dirs in STATICFILES_DIRS
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder", # static dir in apps
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -134,3 +145,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Log in/out redirects
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home' 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
