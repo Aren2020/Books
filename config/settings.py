@@ -39,13 +39,31 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms', 
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
 
     'accounts',
     'pages',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home'
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +73,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -142,8 +162,6 @@ STATICFILES_FINDERS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Log in/out redirects
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home' 
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
