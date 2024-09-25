@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'pages',
+    'books',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
