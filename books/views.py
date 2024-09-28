@@ -1,15 +1,18 @@
-from typing import Any
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, TemplateView
-from .models import Book, Review
+from .models import Book
 
-class BookListView(ListView):
+class BookListView(LoginRequiredMixin, ListView):
     model = Book
     context_object_name = 'book_list'
     template_name = 'books/book_list.html'
 
 
-class BookDetailView(TemplateView):
+class BookDetailView(LoginRequiredMixin,
+                     PermissionRequiredMixin,
+                     TemplateView):
     template_name = 'books/book_detail.html'
+    permission_required = 'books.special_status'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
