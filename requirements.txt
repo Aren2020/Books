@@ -5,3 +5,4 @@ crispy-bootstrap5==2024.2
 django-allauth==64.2.1
 django-debug-toolbar==4.4.6
 pillow==10.4.0
+django-redis==5.4.0
